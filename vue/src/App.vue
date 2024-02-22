@@ -1,0 +1,214 @@
+<template>
+  <div id="capstone-app">
+
+    <!-- Nav -->
+    <header id="nav">
+      <div class="logo">
+        <img src="./assets/images/logo.png" alt="logo">
+      </div>
+
+      <div class="all-nav-links">
+
+        <div class="left-nav-links">
+          <router-link class="nav-link home" v-bind:to="{ name: 'home' }">Home</router-link>
+          <router-link class="nav-link browse" :to="{name: 'browse'}">Browse</router-link>
+          <!-- !-- This div will only be rendered if the token in the Vuex store is not an empty string -->
+          <router-link v-if="role === 'ROLE_USER'" class="nav-link recommended" :to="{name: 'recommended'}">Recommended</router-link>
+          <!-- {{ this.$store.state.user.authorities[0].name }} -->
+          <!-- {{ role }} -->
+        </div>
+
+
+
+      <div v-if="this.$store.state.token != ''" class="right-nav-links">
+          <div v-if="role === 'ROLE_ADMIN'">
+            <router-link :to="{ name: 'admin' }" class="nav-link admin">Admin</router-link>
+          </div>
+
+          <div v-if="role === 'ROLE_USER'">
+            <router-link class="nav-link profile" :to="{name: 'profile'}">Profile</router-link>
+
+          </div>
+
+          <router-link class="nav-link logout" v-bind:to="{ name: 'logout' }">Logout</router-link>
+      </div>
+  
+      </div>
+
+
+      
+    </header>
+  
+        <router-view />
+      </div>
+</template>
+
+<script>
+  export default{
+    data() {
+      return {
+        
+      }
+    },
+  computed: {
+      role() {
+        if(this.$store.state.token === '') {
+          return 'ROLE_NONUSER'
+        } else {
+          return this.$store.state.user.authorities[0].name;
+        }
+      }
+    }
+  }
+
+</script>
+
+<style>
+
+@media screen and (max-width: 600px){
+
+  .all-nav-links{
+    justify-content: center;
+    margin-left: 23%;
+     background-color: #893222;
+    padding-bottom: 5%;
+    margin-top: 10% ;
+    height: 100%;
+    /* border: 2px solid #000000; */
+  }
+  
+  #nav {
+    flex-direction: column; 
+    height: auto;
+  }
+
+  .all-nav-links {
+    flex-direction: column; 
+    justify-content: center; 
+    align-items: center;
+    margin-left: 0;
+    margin-right: 0;
+    padding-bottom: 20px; 
+   /* border: 2px solid #000000; */
+  }
+
+  .right-nav-links {
+    margin-top: 10px; 
+  }
+
+  .nav-link {
+    font-size: 30px; 
+    margin: 10px 0; 
+    border: 2px solid #000000;
+
+  }
+
+  .nav-link.home{
+    font-size: 40px;
+  }
+
+  .nav-link.browse{
+    font-size: 40px;
+  }
+  .nav-link.home:hover
+  {
+    color: #212121;
+    transform: scale(1.2);
+  }
+  .nav-link.browse:hover
+  {
+    color: #212121;
+    transform: scale(1.2);
+  }
+  
+  
+}
+
+
+@font-face {
+  font-family: 'mont';
+  src: url(./assets/fonts/MontereyFLF.ttf);
+}
+
+@font-face {
+  font-family: 'roboto';
+  src: url(./assets/fonts/Roboto-Regular.ttf);
+}
+
+body{
+  margin: 0;
+  font-family: 'roboto', 'mont';
+
+}
+
+#nav {
+  display: flex;
+  background-color: #893222;
+  /* justify-content: space-between; */
+  align-items: center;
+  height: 100%;
+  padding-bottom: 5px;
+  /* border-bottom: 2px solid #000000; */
+}
+
+.all-nav-links{
+  display: flex;
+  flex-grow: 1;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.right-nav-links{
+  display: flex;
+}
+
+
+.nav-link {
+  color: #dbbe4b;
+  text-decoration: none;
+  font-size: 25px;
+  font-family: 'mont';
+  transition: transform 0.3s;
+  margin: 0px 15px;
+}
+
+.nav-link.home:hover {
+  color: #212121;
+  transform: scale(1.2);
+}
+
+.nav-link.browse:hover {
+  color: #212121;
+  transform: scale(1.2);
+}
+
+.nav-link.profile:hover {
+  color: #212121;
+  transform: scale(1.2);
+}
+
+.nav-link.logout:hover {
+  color: #212121;
+  transform: scale(1.2);
+}
+
+.nav-link.recommended:hover {
+  color: #212121;
+  transform: scale(1.2);
+}
+
+
+
+.logo img {
+  padding-left: 5%;
+  width: 35px;
+  height: 40%;
+}
+
+/* need to add logo */
+html {
+  background-color: #893222;
+
+}
+
+</style>

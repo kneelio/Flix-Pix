@@ -1,0 +1,171 @@
+<template>
+
+  <!-- To properly make this page items within a flex box, we should make the profile card and profile form separate components that are used in the profile view -->
+    <div class="container">
+      <div v-if="!editMode"   class="profile-info">
+        <div class="profileShown">
+          <profile-info v-if="editMode == false"></profile-info>
+          <button class= "edit-btn" @click="editMode = true" >Edit</button>
+        </div>
+      </div>
+      <div v-else class="profile-info">
+        <edit-profile-form></edit-profile-form>
+        <button class= "close-btn" @click="editMode = false" >Close</button>
+
+      </div>
+
+    <div class="profile-favs">
+      <favorites-list></favorites-list>
+    </div>
+
+    <div class="profile-friends">
+      <friends-list></friends-list>
+    </div>
+
+  </div>
+
+  </template>
+  
+  <script>
+  import FavoritesList from '../components/FavoritesList.vue'
+  import ProfileInfo from '../components/ProfileInfo.vue';
+  import EditProfileForm from '../components/EditProfileForm.vue'
+  import FriendsList from '../components/FriendsList.vue';
+
+  export default {
+    data() {
+      return {
+        editMode: false,
+        username: this.$store.state.username,
+
+      }
+    },
+    components: {
+      FavoritesList,
+      ProfileInfo,
+      EditProfileForm,
+      FriendsList
+    },
+    methods: {
+
+    }
+
+  }
+  </script>
+  
+    <style scoped>
+    @font-face {
+        font-family: 'mont';
+        src: url(../assets/fonts/MontereyFLF.ttf);
+    }
+    @font-face {
+        font-family: 'roboto';
+        src: url(../assets/fonts/Roboto-Regular.ttf);
+    }
+     
+    .container {
+      height: 100vh;
+     display: grid;
+     grid-template-columns: 1fr, 1fr, 1fr;
+     grid-template-rows: 1fr, 1fr, 1fr;
+     grid-template-areas:
+     "info info friends"
+     "info info friends"
+     "fav fav fav"
+     ;
+     justify-items: center;
+    align-items: center; 
+    height: 100vh;
+    margin: 100px;
+}
+    .profile-favs {
+    grid-area: fav;
+    border: 5px solid #dbdbdb;
+    background-color: #FFF6D7;
+    border-radius: 1vh;
+    width: 100%;
+    height: 100%;
+    box-shadow: 20px 20px 20px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    margin-top: 40px;
+    
+    margin-left: 3%;
+    }
+
+    .profile-info {
+    grid-area: info;
+    border: 5px solid #dbdbdb;
+    background-color: #FFF6D7;
+    border-radius: 1vh;
+    width: 100%;
+    height: 100%;
+    max-width: 35vw;
+    max-height: 500vh;
+    box-shadow: 20px 20px 20px  rgba(0, 0, 0, 0.1);
+    margin-right: 5%;
+    margin-bottom: 12vh;
+    padding-left: 15vh;
+    text-align: center;
+    padding-right: 20%;
+    
+    }
+
+    .profile-friends {
+      grid-area: friends;
+    border: 5px solid #dbdbdb;
+    background-color: #FFF6D7;
+    border-radius: 1vh;
+    width: 100%;
+    height: 100%;
+    box-shadow: 20px 20px 20px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    margin-bottom: 12vh;
+
+    }
+    
+/* tweaked btn */
+    .edit-btn{
+        font-size: 1.2em;
+        font-family: 'mont';
+        padding: 5px 10px;
+        margin-left: 13%;
+        margin-top: 20px;
+        background-color: #893222;
+        color: #dbbe4b;
+        border: none;
+        cursor: pointer;
+        border-radius: 50px;
+        outline: none;
+        cursor: pointer;
+        position: relative;
+        /* box-shadow: 20px 20px 20px rgba(0, 0, 0, 0.1); */
+        overflow: hidden;
+        transition: transform 0.3s;
+}
+  .close-btn {
+    margin-left: 10vh;
+    justify-content: center;
+    margin-top: 3%;
+    margin-bottom: 0px;
+    font-size: 1.2em;
+        font-family: 'mont';
+        padding: 5px 10px;
+        /* margin-left: 13%; */
+        background-color: #893222;
+        color: #dbbe4b;
+        border: none;
+        cursor: pointer;
+        border-radius: 50px;
+        cursor: pointer;
+        transition: transform 0.3s;
+
+  }
+      .close-btn:hover {
+        background-color: #6d271b;
+        transform: scale(1.2);  
+      }
+      .edit-btn:hover {
+        background-color: #6d271b;
+        transform: scale(1.2);  
+      }
+    </style>  
